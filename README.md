@@ -1,144 +1,98 @@
-# Docling PDF to Markdown GUI
+# Docling GUI
 
-A graphical user interface for the Docling PDF to Markdown converter, designed to make batch PDF conversion easier and more user-friendly.
+A graphical user interface for the Docling document processing tool, built with PyQt6. This application provides a user-friendly way to process various document formats using Docling.
 
 ## Features
 
-- Convert PDF files to Markdown format
-- Recursive folder scanning for PDF files
-- OCR support for images and text
-- Multiple OCR engine options
+- Process multiple document types (PDF, DOCX, PPTX, HTML, XLSX, MD, TXT)
+- Batch processing support
+- Multiple export formats (Markdown, JSON, Text, Doctags)
+- OCR capabilities with EasyOCR
+- Progress tracking
 - Configurable table processing modes
-- Progress tracking with visual feedback
-- Settings persistence between sessions
-- PDF deletion after conversion (optional)
-- Detailed logging and error reporting
+- Error handling and logging
 
 ## Requirements
 
-- Python 3.9 or higher
-- PyQt5
-- Docling library
-- Operating System: Windows, macOS, or Linux
+- Python 3.6+
+- PyQt6
+- Docling CLI tool
+- EasyOCR (for OCR functionality)
 
 ## Installation
 
-1. First, ensure you have Python 3.9+ installed on your system:
-   ```bash
-   python --version
-   ```
+1. Install Python dependencies: 
+pip install PyQt6 docling easyocr
 
-2. Install the required dependencies:
-   ```bash
-   pip install PyQt5 docling
-   ```
-
-3. Clone this repository or download the `doclingGUI.py` file:
-   ```bash
-   git clone https://github.com/j816/doclingGUI.git
-   cd doclinggui
-   ```
-
-4. Make sure the Docling command-line tool is properly installed and accessible from the command line:
-   ```bash
-   docling --version
-   ```
+git clone <doclingGUI>
+cd doclingGUI
 
 ## Usage
 
 1. Run the application:
-   ```bash
-   python doclingGUI.py
-   ```
+python main.py
 
-2. The GUI will appear with the following options:
 
-   ### Input/Output Settings
-   - **Input Folder**: Select the folder containing your PDF files
-   - **Output Folder**: Choose where to save the converted Markdown files
+2. Using the GUI:
+   - Select an input folder containing your documents
+   - Choose an output folder for processed files
+   - Configure processing options:
+     - Export Format: Choose between md, json, text, or doctags
+     - Table Mode: Select 'fast' or 'accurate' processing
+     - OCR Options: Enable/disable force OCR or bitmap OCR
+   - Click "Start Processing" to begin
+   - Use "Cancel" to stop processing at any time
 
-   ### OCR Settings
-   - **Enable OCR**: Process images in PDFs
-   - **Force OCR**: Process all text (not just images)
-   - **Delete PDFs**: Option to remove original PDFs after conversion
-   - **OCR Engine**: Choose between easyocr, tesseract, tesseract_cli, or ocrmac
+## Processing Options
 
-   ### Processing Options
-   - **Table Mode**: 
-     - Accurate (better quality, slower)
-     - Fast (lower quality, faster)
-   
-   ### Verbosity Level
-   - 0: Silent (errors only)
-   - 1: Info (processing updates)
-   - 2: Debug (detailed technical info)
+### Export Formats
+- `md`: Markdown format
+- `json`: JSON format
+- `text`: Plain text
+- `doctags`: Document tags format
 
-3. Click "Run Conversion" to start the process
-4. Use "Reset" to clear the current state and start a new conversion
+### Table Processing Modes
+- `fast`: Quicker processing with potentially lower accuracy
+- `accurate`: More precise table extraction with longer processing time
 
-## Features in Detail
+### OCR Options
+- **Force OCR**: Forces OCR on all content
+- **OCR for Bitmaps**: Applies OCR only to bitmap images
 
-### Recursive Folder Processing
-- The application automatically scans all subfolders in the input directory
-- Maintains folder structure in the output directory
-- Processes all PDF files found in the folder hierarchy
+## File Support
 
-### Progress Tracking
-- Visual progress bar
-- Current file display
-- File count tracking
-- Status updates
-
-### Settings Persistence
-- All settings are automatically saved
-- Settings are restored when the application restarts
-- Saved in `~/.docling_gui_settings.json`
-
-### Error Handling
-- Detailed error messages
-- Logging to console
-- User-friendly error notifications
-- Graceful failure recovery
-
-## Common Issues and Solutions
-
-1. **OCR Engine Not Found**
-   - Ensure the selected OCR engine is installed
-   - For Tesseract: Install tesseract-ocr on your system
-   - For EasyOCR: `pip install easyocr`
-
-2. **Permission Errors**
-   - Ensure you have write permissions for the output folder
-   - Run the application with appropriate permissions
-
-3. **Docling Command Not Found**
-   - Ensure Docling is properly installed: `pip install docling`
-   - Verify installation: `docling --version`
-
-## Best Practices
-
-1. **Before Converting**
-   - Backup your PDF files
-   - Ensure sufficient disk space
-   - Test with a small batch first
-
-2. **OCR Settings**
-   - Use Force OCR for scanned documents
-   - Use regular OCR for documents with mixed content
-   - Choose accurate table mode for complex tables
-
-3. **Performance**
-   - Process smaller batches for better control
-   - Monitor system resources during conversion
-   - Use appropriate verbosity level for your needs
+Supported input formats:
+- PDF (.pdf)
+- Microsoft Word (.docx)
+- Microsoft PowerPoint (.pptx)
+- Microsoft Excel (.xlsx)
+- HTML (.html)
+- Markdown (.md)
+- Text files (.txt)
 
 ## Logging
 
-The application creates detailed logs with timestamps. Log levels:
-- INFO: Normal operation information
-- WARNING: Non-critical issues
-- ERROR: Critical issues that need attention
-- DEBUG: Detailed technical information (verbosity level 2)
+The application maintains logs in `docling_gui.log`, recording:
+- Processing operations
+- Errors and exceptions
+- File operations
+- Configuration changes
+
+## Error Handling
+
+The application includes comprehensive error handling for:
+- Invalid file types
+- Processing failures
+- Directory access issues
+- OCR processing errors
+
+## Development
+
+The application is structured with the following main components:
+- `ProcessingConfig`: Configuration dataclass
+- `FileProcessor`: Handles file operations
+- `DoclingWorker`: Background processing thread
+- `MainWindow`: Main GUI interface
 
 ## Contributing
 
@@ -149,22 +103,4 @@ The application creates detailed logs with timestamps. Log levels:
 5. Create a Pull Request
 
 ## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Built on top of the Docling library
-- Uses PyQt5 for the graphical interface
-- Special thanks to the Docling development team
-
-## Support
-
-For issues, questions, or contributions, please:
-1. Check the existing issues on GitHub
-2. Create a new issue if needed
-3. Provide detailed information about your problem
-
----
-
-Created by Juan
+MIT
